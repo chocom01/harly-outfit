@@ -15,30 +15,30 @@ ActiveRecord::Schema.define(version: 2021_07_05_111125) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "order_products", force: :cascade do |t|
-    t.bigint "order_id", null: false
-    t.bigint "product_id", null: false
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.index ["order_id"], name: "index_order_products_on_order_id"
-    t.index ["product_id"], name: "index_order_products_on_product_id"
-  end
-
   create_table "orders", force: :cascade do |t|
     t.bigint "user_id", null: false
-    t.integer "price_sum"
+    t.integer "price_cents"
     t.integer "status"
-    t.date "departure_date"
-    t.date "delivery_date"
+    t.datetime "departure_date"
+    t.datetime "delivery_date"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
     t.index ["user_id"], name: "index_orders_on_user_id"
   end
 
+  create_table "orders_items", force: :cascade do |t|
+    t.bigint "order_id", null: false
+    t.bigint "product_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["order_id"], name: "index_orders_items_on_order_id"
+    t.index ["product_id"], name: "index_orders_items_on_product_id"
+  end
+
   create_table "products", force: :cascade do |t|
     t.string "name"
-    t.integer "price"
-    t.integer "size"
+    t.integer "price_cents"
+    t.string "sizes", default: [], array: true
     t.integer "gender"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -47,7 +47,7 @@ ActiveRecord::Schema.define(version: 2021_07_05_111125) do
   create_table "reviews", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "product_id", null: false
-    t.float "rate"
+    t.integer "rate"
     t.text "text"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
@@ -58,14 +58,15 @@ ActiveRecord::Schema.define(version: 2021_07_05_111125) do
   create_table "users", force: :cascade do |t|
     t.string "name"
     t.string "email"
-    t.string "password"
+    t.string "password_digest"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
-  add_foreign_key "order_products", "orders"
-  add_foreign_key "order_products", "products"
   add_foreign_key "orders", "users"
+  add_foreign_key "orders_items", "orders"
+  add_foreign_key "orders_items", "products"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
 end
