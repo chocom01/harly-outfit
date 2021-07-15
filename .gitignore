@@ -1,3 +1,6 @@
 /.bundle
 /vendor/bundle/
 /vendor/ruby/
+/tmp/cache
+/tmp/development_secret.txt
+/log/development.log
