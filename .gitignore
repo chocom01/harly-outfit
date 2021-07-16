@@ -4,3 +4,12 @@
 /tmp/cache
 /tmp/development_secret.txt
 /log/development.log
+
+/public/packs
+/public/packs-test
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity
+
+/tmp
