@@ -1,4 +1,40 @@
-<h1>Ids of all the products</h1>
-<% @products.each do |product| %>
-  Id: <%= product.id %><br>
-<% end %>
+<div class="container">
+  <div class="page-header">
+    <h1>Products</h1>
+  </div>
+</div>
+<div class="container">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Sizes</th>
+        <th>Gender</th>
+        <th>Details</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @products.each do |product| %>
+        <tr>
+          <td><%= product.id %></td>
+          <td><%= product.name %></td>
+          <td><%= product.price_cents %></td>
+          <td><%= product.sizes %></td>
+          <td><%= product.gender %></td>
+          <td>
+            <% if product.photos.exists? %>
+              <%= image_tag product.photos.first.image_url %>
+            <% end %>
+          </td>
+
+
+          <td><%= link_to "Show", product, class: 'label label-info' %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+  <%= paginate @products %>
+    <%= page_entries_info @products %>
+</div>
