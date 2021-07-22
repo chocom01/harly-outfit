@@ -5,3 +5,35 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+@products = Product.create(
+  [
+    { name: 'Dress', price_cents: 500, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Coat', price_cents: 400, sizes: ['M, S'], gender: 0 },
+
+    { name: 'Suit', price_cents: 300, sizes: ['M, S'], gender: 1 },
+
+    { name: 'T-shirt', price_cents: 150, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Pants', price_cents: 500, sizes: ['M, S'], gender: 0 },
+
+    { name: 'Jacket', price_cents: 400, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Skirt', price_cents: 300, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Dress', price_cents: 500, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Coat', price_cents: 400, sizes: ['M, S'], gender: 0 },
+
+    { name: 'Suit', price_cents: 300, sizes: ['M, S'], gender: 1 },
+
+    { name: 'T-shirt', price_cents: 150, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Pants', price_cents: 500, sizes: ['M, S'], gender: 0 },
+
+    { name: 'Jacket', price_cents: 400, sizes: ['M, S'], gender: 1 },
+
+    { name: 'Skirt', price_cents: 300, sizes: ['M, S'], gender: 1 }
+
+  ]
+)
