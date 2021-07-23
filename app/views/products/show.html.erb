@@ -1,0 +1,18 @@
+<div class="container">
+  <div class="jumbotron">
+    <h1><%= @product.name %></h1>
+    <p>Price: <%= @product.price_cents %></p>
+    <p>Sizes: <%= @product.sizes %></p>
+    <p>Gender: <%= @product.gender %></p>
+  <% if @product.photos.exists? %>
+    <p> <%= image_tag @product.photos.first.image_url %> </p>
+  <% end %>
+  </div>
+</div>
+<div class="container">
+  <div class="panel panel-default">
+    <div class="panel-body">
+        <p><%= link_to 'Back', products_path %></p>
+    </div>
+  </div>
+</div>

@@ -8,7 +8,7 @@ class ProductsController < ApplicationController
   end
 
   def show
-    render json: product
+    @product
   end
 
   private
