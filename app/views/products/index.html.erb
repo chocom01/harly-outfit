@@ -1,10 +1,10 @@
-<div class="container">
-  <div class="page-header">
+<div class='container'>
+  <div class='page-header'>
     <h1>Products</h1>
   </div>
 </div>
-<div class="container">
-  <table class="table table-striped">
+<div class='container'>
+  <table class='table table-striped'>
     <thead>
       <tr>
         <th>Id</th>
@@ -13,6 +13,7 @@
         <th>Sizes</th>
         <th>Gender</th>
         <th>Details</th>
+        <th>Action</th>
       </tr>
     </thead>
     <tbody>
@@ -21,16 +22,16 @@
           <td><%= product.id %></td>
           <td><%= product.name %></td>
           <td><%= product.price_cents %></td>
-          <td><%= product.sizes %></td>
+          <td><%= product.sizes.join(', ') %></td>
           <td><%= product.gender %></td>
           <td>
             <% if product.photos.exists? %>
-              <%= image_tag product.photos.first.image_url %>
+              <%= image_tag product.photos.first.image_url(:small)%>
             <% end %>
           </td>
-
-
-          <td><%= link_to "Show", product, class: 'label label-info' %></td>
+          <td>
+            <%= link_to 'Show', product, class: 'btn btn-primary btn-sm' %>
+        </td>
         </tr>
       <% end %>
     </tbody>
