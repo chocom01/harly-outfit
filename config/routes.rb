@@ -1,6 +1,7 @@
 # frozen_string_literal: true
 
 Rails.application.routes.draw do
+  devise_for :user
   mount RailsAdmin::Engine => '/admin', as: 'rails_admin'
   root to: redirect('products')
   resources :products, only: %i[index show]
