@@ -26,6 +26,8 @@ gem 'shrine', '~> 3.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan'
 gem 'devise'
+gem 'devise-bootstrap-views', '~> 1.0'
+gem 'devise-i18n'
 gem 'image_processing', '~> 1.8'
 
 # Use Active Storage variant

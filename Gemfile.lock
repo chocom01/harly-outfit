@@ -82,6 +82,9 @@ GEM
       railties (>= 4.1.0)
       responders
       warden (~> 1.2.3)
+    devise-bootstrap-views (1.1.0)
+    devise-i18n (1.10.0)
+      devise (>= 4.8.0)
     down (5.2.2)
       addressable (~> 2.5)
     erubi (1.10.0)
@@ -254,6 +257,8 @@ DEPENDENCIES
   byebug
   cancancan
   devise
+  devise-bootstrap-views (~> 1.0)
+  devise-i18n
   image_processing (~> 1.8)
   jbuilder (~> 2.7)
   kaminari
