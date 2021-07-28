@@ -19,6 +19,34 @@
             <a <%= link_to 'Home', products_path, class: 'nav-link active'%></a>
           </li>
         </ul>
+        <% if user_signed_in? %>
+        <div class="d-flex">
+          <% if current_user.superadmin_role? %>
+            <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+              <li class='nav-item'>
+                <a <%= link_to "Admin page", rails_admin.dashboard_path, class: 'nav-link active' %> </a>
+              </li>
+            </ul>
+          <% end %>
+          <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+            <li class='nav-item'>
+              <a <%= link_to "Logout", destroy_user_session_path, method: :delete, class: 'nav-link active' %> </a>
+            </li>
+          </ul>
+        </div>
+        <% else %>
+        <div class="d-flex">
+          <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
+            <li class='nav-item'>
+              <a <%= link_to "Login", new_user_session_path, class: "nav-link active" %> </a>
+            </li>
+            <li class='nav-item'>
+              <a <%= link_to "Sign Up", new_user_registration_path, class: "nav-link active" %> </a>
+            </li>
+          </ul>
+        </div>
+            <% end %>
+      </div>
       </div>
   </nav>
 
