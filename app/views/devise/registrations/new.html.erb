@@ -1,30 +1,38 @@
-<h1><%= t('.sign_up') %></h1>
+<div class='col d-flex justify-content-center mt-5'>
+  <h1> Sign up </h1>
+</div>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-  <%= bootstrap_devise_error_messages! %>
+<div class="col d-flex justify-content-center mt-4">
+  <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html:{ class: 'col-2'} ) do |f| %>
+    <%= bootstrap_devise_error_messages! %>
 
-  <div class="form-group">
-    <%= f.label :email %>
-    <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
-  </div>
+    <div class="form-outline mb-4">
+      <%= f.label :email, class: 'form-label' %>
+      <%= f.email_field :email, autofocus: true, autocomplete: 'email', class: 'form-control' %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :password %>
-    <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
+    <div class="form-outline mb-4">
+      <%= f.label :password, class: 'form-label' %>
+      <%= f.password_field :password, autocomplete: 'current-password', class: 'form-control' %>
 
-    <% if @minimum_password_length %>
-      <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
-    <% end %>
-  </div>
+      <% if @minimum_password_length %>
+        <small class="form-text text-muted"><%= t('devise.shared.minimum_password_length', count: @minimum_password_length) %></small>
+      <% end %>
+    </div>
 
-  <div class="form-group">
-    <%= f.label :password_confirmation %>
-    <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
-  </div>
+    <div class="form-outline mb-4">
+      <%= f.label :password_confirmation %>
+      <%= f.password_field :password_confirmation, autocomplete: 'current-password', class: 'form-control' %>
+    </div>
 
-  <div class="form-group">
-    <%= f.submit t('.sign_up'), class: 'btn btn-primary' %>
-  </div>
-<% end %>
+    <div class="form-outline mb-4">
+      <div class='col d-flex justify-content-center'>
+      <%= f.submit t('.sign_up'), class: 'btn btn-primary btn-block mb-4 form-control' %>
+      </div>
 
-<%= render 'devise/shared/links' %>
+      <div class='col d-flex justify-content-center'>
+      <%= link_to t(".log_in"), new_session_path(resource_name), class: 'btn' %>
+      </div>
+    </div>
+  <% end %>
+</div>
