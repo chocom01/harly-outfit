@@ -6,6 +6,8 @@
         <div class="card h-100">
           <% if product.photos.exists? %>
             <%= image_tag product.photos.first.image_url(:small), class: "card-img-top", width: "200px"%>
+            <% else %>
+            <%= image_tag '/women-clothing.jpg', class: "card-img-top", width: "200px"%>
           <% end %>
           <div class="card-body">
             <div class="card text-center">
