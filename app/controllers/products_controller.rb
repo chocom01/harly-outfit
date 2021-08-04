@@ -1,9 +1,8 @@
 # frozen_string_literal: true
 
 class ProductsController < ApplicationController
-  before_action :authenticate_user!
+  before_action :authenticate_user!, except: :index
   before_action :find_product, only: :show
-  skip_before_action :authenticate_user!, only: [:index]
   load_and_authorize_resource
 
   def index
