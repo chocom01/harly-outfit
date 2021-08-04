@@ -1,41 +1,34 @@
-<div class='container'>
-  <div class='page-header'>
-    <h1>Products</h1>
-  </div>
-</div>
-<div class='container'>
-  <table class='table table-striped'>
-    <thead>
-      <tr>
-        <th>Id</th>
-        <th>Name</th>
-        <th>Price</th>
-        <th>Sizes</th>
-        <th>Gender</th>
-        <th>Details</th>
-        <th>Action</th>
-      </tr>
-    </thead>
-    <tbody>
+<div class="d-flex justify-content-center">
+  <div class="w-75 p-3" >
+    <div class="row row-cols-1 row-cols-md-4 px-4 g-4">
       <% @products.each do |product| %>
-        <tr>
-          <td><%= product.id %></td>
-          <td><%= product.name %></td>
-          <td><%= product.price_cents %></td>
-          <td><%= product.sizes.join(', ') %></td>
-          <td><%= product.gender %></td>
-          <td>
-            <% if product.photos.exists? %>
-              <%= image_tag product.photos.first.image_url(:small)%>
-            <% end %>
-          </td>
-          <td>
-            <%= link_to 'Show', product, class: 'btn btn-primary btn-sm' %>
-        </td>
-        </tr>
+      <div class="col">
+        <div class="card h-100">
+          <% if product.photos.exists? %>
+            <%= image_tag product.photos.first.image_url(:small), class: "card-img-top", width: "200px"%>
+          <% end %>
+          <div class="card-body">
+            <div class="card text-center">
+              <h5 class="card-title"><%=product.name %></h5>
+              <p class="card-text">Sizes: <%=product.sizes.join(', ') %></p>
+              <p class="card-text">Gender: <%=product.gender %></p>
+              <strong>
+                <p class="text-center">Price: <%=product.price_cents%></p>
+              </strong>
+            </div>
+          </div>
+          <div class="card-footer">
+            <div class="d-grid gap-2">
+              <%= link_to 'Show', product, class: 'btn btn-primary btn-sm stretched-link' %>
+            </div>
+          </div>
+        </div>
+      </div>
       <% end %>
-    </tbody>
-  </table>
+    </div>
+  </div>
+</div> <br> <br>
+<div class="position-absolute start-50 translate-middle">
   <%= paginate @products %>
-    <%= page_entries_info @products %>
+  <%= page_entries_info @products %>
 </div>
