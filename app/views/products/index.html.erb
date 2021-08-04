@@ -1,21 +1,22 @@
-<div class="p-3 mb-2 bg-secondary">
-
-  <div class="w-80 p-3" >
+<div class="d-flex justify-content-center">
+  <div class="w-75 p-3" >
     <div class="row row-cols-1 row-cols-md-4 px-4 g-4">
       <% @products.each do |product| %>
       <div class="col">
-        <div class="card border-primary h-100">
+        <div class="card h-100">
           <% if product.photos.exists? %>
             <%= image_tag product.photos.first.image_url(:small), class: "card-img-top", width: "200px"%>
           <% end %>
           <div class="card-body">
-            <h5 class="card-title"><%=product.name %></h5>
-            <p class="card-text">Sizes: <%=product.sizes.join(', ') %></p>
-            <p class="card-text">Gender: <%=product.gender %></p>
+            <div class="card text-center">
+              <h5 class="card-title"><%=product.name %></h5>
+              <p class="card-text">Sizes: <%=product.sizes.join(', ') %></p>
+              <p class="card-text">Gender: <%=product.gender %></p>
+              <strong>
+                <p class="text-center">Price: <%=product.price_cents%></p>
+              </strong>
+            </div>
           </div>
-            <strong>
-              <p class="text-center">Price: <%=product.price_cents%></p>
-            </strong>
           <div class="card-footer">
             <div class="d-grid gap-2">
               <%= link_to 'Show', product, class: 'btn btn-primary btn-sm stretched-link' %>
@@ -26,8 +27,8 @@
       <% end %>
     </div>
   </div>
-    <div class="position-absolute start-50 translate-middle">
-        <%= paginate @products %>
-        <%= page_entries_info @products %>
-    </div>
+</div> <br> <br>
+<div class="position-absolute start-50 translate-middle">
+  <%= paginate @products %>
+  <%= page_entries_info @products %>
 </div>
