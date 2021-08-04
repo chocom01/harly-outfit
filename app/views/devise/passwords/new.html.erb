@@ -23,8 +23,10 @@
   <div class="col-2">
     <div class='row mb-4'>
       <div class='col d-flex justify-content-center'>
-        <%= link_to t('.sign_up'), new_registration_path(resource_name), class: 'btn ' %>
-        <%= link_to t(".log_in"), new_session_path(resource_name), class: 'btn' %>
+        <div class="d-grid gap-2 d-md-block">
+          <%= link_to t('.sign_up'), new_registration_path(resource_name), class: 'btn btn-outline-primary' %>
+          <%= link_to t(".log_in"), new_session_path(resource_name), class: 'btn btn-outline-primary' %>
+        </div>
       </div>
     </div>
   </div>
