@@ -1,7 +1,20 @@
 RailsAdmin.config do |config|
+  ## == Devise ==
+  config.authenticate_with do
+    warden.authenticate! scope: :user
+  end
+  config.current_user_method(&:current_user)
 
+  ## == cancancan ==
+  config.authorize_with :cancancan
+
+  config.authorize_with do
+    unless current_user.try(:superadmin_role?)
+      flash[:error] = 'You are not authorize to access this page!'
+      redirect_to main_app.root_path
+    end
+  end
   ### Popular gems integration
-
   ## == Devise ==
   # config.authenticate_with do
   #   warden.authenticate! scope: :user

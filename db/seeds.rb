@@ -5,6 +5,14 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+@users = User.create(
+  [
+    { name: 'Kolya', email: 'mukola0101@gmail.com', password: '123456', superadmin_role: true },
+
+    { name: 'Ivan', email: 'la0101@gmail.com', password: '123456' }
+  ]
+)
+
 @products = Product.create(
   [
     { name: 'Dress', price_cents: 500, sizes: ['M, S'], gender: 1 },
