@@ -13,5 +13,12 @@
         <p>Gender: <%= @product.gender %></p>
       </div>
     </div>
+    <div class="d-grid gap-2 d-md-block">
+      <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
+
+      <%= link_to 'add product to cart', url_for(
+      controller: :orders, action: :add_product, product_id: @product.id,
+      product_price: @product.price_cents), class: 'btn btn-primary btn-sm' %>
+    </div>
   </div>
 </div>
