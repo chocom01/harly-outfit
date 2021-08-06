@@ -5,7 +5,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @orders = Order.page(params[:page])
+    @orders = Order.page(params[:page]).includes(:products)
   end
 
   def show_cart
