@@ -7,18 +7,20 @@ class Order < ApplicationRecord
   }
 
   paginates_per 10
-  has_many :order_items
+  has_many :order_items, dependent: :destroy
   has_many :products, through: :order_items
   belongs_to :user
 
   scope :available_cart, -> { where(status: 'cart') }
 
-  after_touch :sum_products_price
+  after_touch :set_sum_price
 
   private
 
-  def sum_products_price
-    self.sum_cents = products.sum(:price_cents)
+  def set_sum_price
+    self.sum_cents = self.order_items.sum do |item|
+      item.product.price_cents * item.quantity
+    end
     save
   end
 end

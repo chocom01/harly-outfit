@@ -2,7 +2,6 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :find_order, only: :show
   load_and_authorize_resource
 
   def index
@@ -10,24 +9,32 @@ class OrdersController < ApplicationController
   end
 
   def show_cart
-    current_user.available_cart
+    cart
+  end
+
+  def pay
+    cart.update(status: :paid) unless cart.order_items.empty?
+
+    redirect_to products_path
   end
 
   def add_product
-    check_exists_cart && current_user.orders.last.touch
-    redirect_to orders_path
+    add_product_to_order && cart.touch
+
+    redirect_to show_cart_orders_path
   end
 
   private
 
-  attr_reader :order
-
-  def find_order
-    @order = Order.find_by(id: params[:id])
+  def cart
+    @cart ||= current_user.orders.find_or_create_by(status: :cart)
   end
 
-  def check_exists_cart
-    current_user.orders.create if current_user.orders.available_cart.empty?
-    current_user.orders.last.order_items.create(product_id: params[:product_id])
+  def add_product_to_order
+    if cart.products.ids.include?(params[:product_id].to_i)
+      cart.order_items.find_by(product_id: params[:product_id].to_i).touch
+    else
+      cart.order_items.create(product_id: params[:product_id].to_i)
+    end
   end
 end
