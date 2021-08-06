@@ -4,12 +4,12 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :product
 
-  after_create :items_count_increment
-  after_touch :items_count_increment
+  after_create :item_quantity_increment
+  after_touch :item_quantity_increment
 
   private
 
-  def items_count_increment
-    OrderItem.increment_counter(:items_count, self.id)
+  def item_quantity_increment
+    OrderItem.increment_counter(:quantity, self.id)
   end
 end
