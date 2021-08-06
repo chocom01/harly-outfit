@@ -8,7 +8,7 @@ class Order < ApplicationRecord
 
   paginates_per 10
   has_many :order_items, dependent: :destroy
-  has_many :products, through: :order_items
+  has_many :products, through: :order_items, dependent: :destroy
   belongs_to :user
 
   scope :available_cart, -> { where(status: 'cart') }
