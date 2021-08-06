@@ -18,6 +18,12 @@
           <li class='nav-item'>
             <a <%= link_to 'Home', products_path, class: 'nav-link active'%></a>
           </li>
+          <% if user_signed_in? %>
+          <li class='nav-item'>
+            <a <%= link_to 'Cart', url_for(
+            controller: :orders, action: :show_cart), class: 'nav-link active'%></a>
+          </li>
+          <% end %>
         </ul>
         <% if user_signed_in? %>
         <div class="d-flex">
