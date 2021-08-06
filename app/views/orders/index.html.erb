@@ -1,6 +1,6 @@
-<div class="d-flex justify-content-center">
-  <div class="w-75 p-3" >
-    <% @orders.each do |order| %>
+
+
+<% @orders.each do |order| %>
     <div class="accordion" id="accordionPanelsStayOpenExample">
       <div class="accordion-item">
         <h2 class="accordion-header" id="panelsStayOpen-headingOne">
@@ -8,17 +8,19 @@
             <h5 >Order <%=order.id %>, amount: <%= order.sum_cents%></h5>
           </button>
         </h2>
-        <% order.order_items.each do |order_items| %>
         <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
+          <% order.order_items.each do |order_items| %>
           <div class="accordion-body">
             <h5 >Product name: <%=order_items.product.name %></h5>
             <h5 >Product price: <%=order_items.product.price_cents %></h5>
             <%= link_to 'show product', order_items.product, class: 'btn btn-primary btn-sm'%>
           </div>
+          <% end %>
         </div>
-        <% end %>
-        <% end %>
       </div>
     </div>
-  </div>
-</div>
+    <% end %>
+
+
+<%= link_to 'Pay', url_for(
+controller: :orders, action: :pay), class: 'btn btn-primary btn-sm'%>
