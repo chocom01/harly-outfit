@@ -13,10 +13,6 @@ class Order < ApplicationRecord
 
   scope :available_cart, -> { where(status: 'cart') }
 
-  after_touch :set_sum_price
-
-  private
-
   def set_sum_price
     self.sum_cents = self.order_items.sum do |item|
       item.product.price_cents * item.quantity
