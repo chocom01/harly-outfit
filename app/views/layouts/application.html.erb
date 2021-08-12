@@ -16,14 +16,28 @@
       <div class='collapse navbar-collapse' id='navbarSupportedContent'>
         <ul class='navbar-nav me-auto mb-2 mb-lg-0'>
           <li class='nav-item'>
+            <div class="btn btn-primary btn-sm position-relative">
             <a <%= link_to 'Home', products_path, class: 'nav-link active'%></a>
+            </div>
           </li>
+
           <% if user_signed_in? %>
           <li class='nav-item'>
-            <a <%= link_to 'Cart', url_for(
-            controller: :orders, action: :show_cart), class: 'nav-link active'%></a>
+            <div class="btn btn-primary btn-sm position-relative">
+              <a <%= link_to 'Cart', url_for(
+              controller: :orders, action: :show_cart), class: 'nav-link active'%>
+              <% if current_user.orders.exists? %>
+                <% if current_user.orders.find_by(status: 'cart').order_items.exists? %>
+                <span class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                  <%= current_user.orders.find_by(status: 'cart').order_items.count %>
+                </span>
+                <% end %>
+              <% end %>
+              </a>
+            </div>
           </li>
           <% end %>
+
         </ul>
         <% if user_signed_in? %>
         <div class="d-flex">
