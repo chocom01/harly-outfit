@@ -2,20 +2,29 @@
   <div class='position-absolute top-1 start-0'>
     <div class='row'>
       <div class='col'>
-      </div>
-      <div class='col'>
           <h5 >Order <%=@cart.id %>, amount: <%= @cart.sum_cents%></h5>
       </div>
-    </div>
     <div class="d-grid gap-2 d-md-block">
       <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
     </div>
-      <% @cart.order_items.each do |order_items| %>
+    </div>
+      <% @cart.order_items.each do |order_item| %>
       <div class="d-grid gap-2 d-md-block">
-        <h5 >Product name: <%=order_items.product.name %></h5>
-        <h5 >Product price: <%=order_items.product.price_cents %></h5>
-        <h5 >Product count: <%=order_items.quantity %></h5>
-      </div>
+        <h5 >Product name: <%=order_item.product.name %></h5>
+        <h5 >Product ID: <%=order_item.product_id %></h5>
+        <h5 >Product price: <%=order_item.product.price_cents %></h5>
+        <h5 >Product count: <%=order_item.quantity %></h5>
+
+        <%= form_with url: "/orders/add_product", method: :get, class: 'mb-3' do |form| %>
+          <%= form.hidden_field :product_id, value: order_item.product_id %>
+          <%= form.label :query, "Count:", class: 'form-label' %>
+          <%= form.number_field :count, min: 1, value: order_item.quantity, class: 'form-control' %>
+          <%= form.submit "Submit", class: 'btn btn-primary btn-sm' %>
+        <% end %>
+
+    </div>
       <% end %>
+      <%= link_to 'Pay', url_for(
+      controller: :orders, action: :pay), class: 'btn btn-primary btn-sm'%>
   </div>
 </div>

@@ -4,21 +4,30 @@
       <div class='col'>
         <% if @product.photos.exists? %>
         <%= image_tag @product.photos.first.image_url(:large) %>
+        <% else %>
+        <%= image_tag '/women-clothing.jpg', class: "card-img-top", width: "200px"%>
         <% end %>
       </div>
+
       <div class='col'>
         <h3><%= @product.name %></h3>
         <p>Price: <%= @product.price_cents %></p>
         <p>Sizes: <%= @product.sizes.join(', ') %></p>
         <p>Gender: <%= @product.gender %></p>
+
+      <div class="d-grid gap-2 d-md-block">
+        <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
+
       </div>
     </div>
-    <div class="d-grid gap-2 d-md-block">
-      <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
+  </div>
 
-      <%= link_to 'add product to cart', url_for(
-      controller: :orders, action: :add_product, product_id: @product.id,
-      product_price: @product.price_cents), class: 'btn btn-primary btn-sm' %>
-    </div>
+  <%= form_with url: "/orders/add_product", method: :get do |form| %>
+    <%= form.hidden_field :product_id, value: @product.id, class: 'mb-3' %>
+    <%= form.label :query, "Count:", class: 'form-label' %>
+    <%= form.number_field :count, min: 1, value: 1, class: 'form-control' %>
+    <%= form.submit "Add product to cart", class: 'btn btn-primary btn-sm' %>
+  <% end %>
+
   </div>
 </div>
