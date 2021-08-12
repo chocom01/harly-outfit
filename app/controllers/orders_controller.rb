@@ -8,6 +8,12 @@ class OrdersController < ApplicationController
     @orders = Order.page(params[:page]).includes(:products).where(status: 'paid')
   end
 
+  def delete_product
+    cart.order_items.find_by(product_id: params[:product_id]).destroy
+
+    redirect_to show_cart_orders_path
+  end
+
   def show_cart
     cart
   end

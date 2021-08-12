@@ -12,6 +12,7 @@ Rails.application.routes.draw do
       get :add_product
       get :show_cart
       get :pay
+      get :delete_product
     end
   end
 end
