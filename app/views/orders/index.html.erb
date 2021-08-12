@@ -1,26 +1,34 @@
 
-
-<% @orders.each do |order| %>
-    <div class="accordion" id="accordionPanelsStayOpenExample">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="panelsStayOpen-headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
-            <h5 >Order <%=order.id %>, amount: <%= order.sum_cents%></h5>
-          </button>
-        </h2>
-        <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show" aria-labelledby="panelsStayOpen-headingOne">
-          <% order.order_items.each do |order_items| %>
-          <div class="accordion-body">
-            <h5 >Product name: <%=order_items.product.name %></h5>
-            <h5 >Product price: <%=order_items.product.price_cents %></h5>
-            <%= link_to 'show product', order_items.product, class: 'btn btn-primary btn-sm'%>
-          </div>
-          <% end %>
+<link rel="stylesheet" type="text/css" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css" />
+<div class="container bootdey">
+    <div class="panel panel-default panel-order">
+        <div class="panel-heading">
+          <h2> <strong>Order history</strong> </h2>
         </div>
-      </div>
+
+        <% @orders.each do |order| %>
+        <div class="panel-body">
+            <div class="row">
+                <div class="col-md-11">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="pull-right"><label class="label label-danger text-black badge"> <%= order.status %></label></div>
+                            <span class="d-block p-2 p-3 mb-2"><h3>Order <%=order.id %></h3></span> <br />
+                            Сost: $<%= order.sum_cents%> <br />
+                        </div>
+                        <% order.order_items.each do |order_items| %>
+                        <div class="col-md-12">
+                        <div class="pull-right"><label class="label label-danger"> <%= link_to 'show product', order_items.product, class: 'btn btn-primary badge bg-primary btn-sm'%></label></div>
+
+                      </div>
+
+                        <% end %>
+                        <div class="col-md-12">order made on: <%= order.created_at.strftime("%Y-%m-%d") %> </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+        <% end %>
     </div>
-    <% end %>
-
-
-<%= link_to 'Pay', url_for(
-controller: :orders, action: :pay), class: 'btn btn-primary btn-sm'%>
+</div>
