@@ -15,4 +15,10 @@ Rails.application.routes.draw do
       get :delete_product
     end
   end
+
+  resources :reviews do
+    collection do
+      post :create_review
+    end
+  end
 end
