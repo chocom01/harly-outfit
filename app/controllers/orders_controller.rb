@@ -2,10 +2,15 @@
 
 class OrdersController < ApplicationController
   before_action :authenticate_user!
+  before_action :find_order, only: :show
   load_and_authorize_resource
 
   def index
     @orders = Order.page(params[:page]).includes(:products).where(status: 'paid')
+  end
+
+  def show
+    @order
   end
 
   def delete_product
@@ -32,6 +37,10 @@ class OrdersController < ApplicationController
   end
 
   private
+
+  def find_order
+    @order = Order.find_by(id: params[:id])
+  end
 
   def cart
     @cart ||= create_empty_cart

@@ -1,0 +1,22 @@
+<div class='container'>
+  <div class='position-absolute top-1 start-0'>
+    <div class='row'>
+
+      <div class='col'>
+        <h4>Price: <%= @order.sum_cents %></h4>
+        <h4>Status: <%= @order.status %></h4> <br>
+
+        <% @order.order_items.each do |order_item| %>
+      <div class="d-grid gap-2 d-md-block">
+        <h5 >Product name: <%=order_item.product.name %></h5>
+        <h5 >Product price: <%=order_item.product.price_cents %></h5>
+        <h5 >Product quantity: <%=order_item.quantity %></h5>
+          <%= link_to 'Show product', order_item.product, class: 'btn btn-primary btn-sm'%>
+          <% end %>
+      </div>
+    </div>
+  </div>
+
+
+  </div>
+</div>

@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :products, only: %i[index show]
 
-  resources :orders, only: :index do
+  resources :orders, only: %i[index show] do
     collection do
       get :add_product
       get :show_cart
