@@ -9,7 +9,7 @@ class Ability
     user ||= User.new # guest user (not logged in)
     can :read, Product, public: true
     if user.present?  # additional permissions for logged in users (they can read their own posts)
-      can :read, :all
+      can :manage, :all
     end
     if user.superadmin_role?
       can :manage, :all
