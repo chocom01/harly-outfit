@@ -8,6 +8,7 @@
 
         <% @order.order_items.each do |order_item| %>
       <div class="d-grid gap-2 d-md-block">
+        <h5 >Product id: <%=order_item.product.id %></h5>
         <h5 >Product name: <%=order_item.product.name %></h5>
         <h5 >Product price: <%=order_item.product.price_cents %></h5>
         <h5 >Product quantity: <%=order_item.quantity %></h5>
