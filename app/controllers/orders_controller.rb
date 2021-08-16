@@ -15,6 +15,7 @@ class OrdersController < ApplicationController
 
   def delete_product
     cart.order_items.find_by(product_id: params[:product_id]).destroy
+    cart.set_sum_price
 
     redirect_to show_cart_orders_path
   end
@@ -24,9 +25,16 @@ class OrdersController < ApplicationController
   end
 
   def pay
-    cart.update(status: :paid) unless cart.order_items.empty?
-    create_empty_cart
+    cart.order_items.each do |item|
+      if item.product.availability < item.quantity
+        flash[:alert] = 'Ooops.. somethink went wrong, please check availability of products in cart'
+        return redirect_back(fallback_location: root_path)
+      end
 
+      product_availability = item.product.availability - item.quantity
+      item.product.update(availability: product_availability)
+    end
+    cart.update(status: :paid) && create_empty_cart
     redirect_to products_path
   end
 
