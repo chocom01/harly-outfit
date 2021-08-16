@@ -9,7 +9,7 @@ class Review < ApplicationRecord
   private
 
   def rights_to_live_review
-    user_bought_product? || errors.add(:review, "user didn't buy this product")
+    user_bought_product? || errors.add(:user, 'should buy this product, to leave review')
   end
 
   def user_bought_product?
