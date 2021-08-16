@@ -6,7 +6,7 @@ class ProductsController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @products = Product.page(params[:page])
+    @products = Product.order(:id).page(params[:page])
   end
 
   def show
