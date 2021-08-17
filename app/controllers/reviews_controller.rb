@@ -4,7 +4,7 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
   load_and_authorize_resource
 
-  def create_review
+  def create
     review = Review.new(
       user: current_user, product_id: params[:product_id], text: params[:text]
     )

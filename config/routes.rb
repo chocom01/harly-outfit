@@ -16,9 +16,5 @@ Rails.application.routes.draw do
     end
   end
 
-  resources :reviews do
-    collection do
-      post :create_review
-    end
-  end
+  resources :reviews, only: :create
 end

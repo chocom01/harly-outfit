@@ -25,7 +25,7 @@
     <% end %>
   </div>
     <div class='row'>
-    <%= form_with url: "/reviews/create_review", method: :post do |form| %>
+    <%= form_with url: "/reviews", method: :post do |form| %>
       <%= form.hidden_field :product_id, value: @product.id, class: 'mb-1' %>
       <%= form.label :query, "Review:", class: 'form-label' %>
       <%= form.text_field :text, class: 'form-control' %>
