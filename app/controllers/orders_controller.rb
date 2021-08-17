@@ -51,14 +51,14 @@ class OrdersController < ApplicationController
   end
 
   def cart
-    @cart ||= create_empty_cart
+    @cart ||= find_or_create_cart
   end
 
   def add_product_to_order
     cart.order_items.find_or_create_by(product_id: params[:product_id].to_i)
   end
 
-  def create_empty_cart
+  def find_or_create_cart
     current_user.orders.find_or_create_by(status: :cart)
   end
 end
