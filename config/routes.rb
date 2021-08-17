@@ -15,4 +15,6 @@ Rails.application.routes.draw do
       get :delete_product
     end
   end
+
+  resources :reviews, only: :create
 end

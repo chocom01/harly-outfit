@@ -1,33 +1,53 @@
 <div class='container'>
-  <div class='position-absolute top-1 start-0'>
-    <div class='row'>
-      <div class='col'>
-        <% if @product.photos.exists? %>
-        <%= image_tag @product.photos.first.image_url(:large) %>
-        <% else %>
-        <%= image_tag '/women-clothing.jpg', class: "card-img-top", width: "200px"%>
-        <% end %>
-      </div>
+  <div class='row'>
+    <div class='col'>
+      <% if @product.photos.exists? %>
+      <%= image_tag @product.photos.first.image_url(:small) %>
+      <% else %>
+      <%= image_tag '/women-clothing.jpg', width: '200px'%>
+      <% end %>
+    </div>
 
-      <div class='col'>
-        <h3><%= @product.name %></h3>
-        <p>Price: <%= @product.price_cents %></p>
-        <p>Sizes: <%= @product.sizes.join(', ') %></p>
-        <p>Gender: <%= @product.gender %></p>
-
-      <div class="d-grid gap-2 d-md-block">
-        <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
-
-      </div>
+    <div class='col'>
+      <h3><%= @product.name %></h3>
+      <p>Price: <%= @product.price_cents %></p>
+      <p>Sizes: <%= @product.sizes.join(', ') %></p>
+      <p>Gender: <%= @product.gender %></p>
     </div>
   </div>
 
-  <%= form_with url: "/orders/add_product", method: :get do |form| %>
-    <%= form.hidden_field :product_id, value: @product.id, class: 'mb-3' %>
-    <%= form.label :query, "Count:", class: 'form-label' %>
-    <%= form.number_field :count, min: 1, value: 1, class: 'form-control' %>
-    <%= form.submit "Add product to cart", class: 'btn btn-primary btn-sm' %>
+  <div class='row'>
+    <%= form_with url: '/orders/add_product', method: :get do |form| %>
+      <%= form.hidden_field :product_id, value: @product.id, class: 'mb-3' %>
+      <%= form.label :query, 'Count:', class: 'form-label' %>
+      <%= form.number_field :count, min: 1, value: 1, class: 'form-control' %>
+      <%= form.submit 'Add product to cart', class: 'btn btn-primary btn-sm' %>
+    <% end %>
+  </div>
+    <div class='row'>
+    <%= form_with url: '/reviews', method: :post do |form| %>
+      <%= form.hidden_field 'review[product_id]', value: @product.id, class: 'mb-1' %>
+      <%= form.label :query, 'Review:', class: 'form-label' %>
+      <%= form.text_field 'review[text]', class: 'form-control' %>
+      <%= form.submit 'Leave review', class: 'btn btn-primary btn-sm' %>
+    <% end %>
+  </div>
+  <br>
+  <h4>Reviews:</h4>
+  <br>
+
+  <% if flash[:error] %>
+    <div class='alert'><%= flash[:error] %></div>
   <% end %>
 
-  </div>
+  <% @product.reviews.each do |review| %>
+    <div class='card'>
+      <div class='card-header'>
+        <h5>User: <%= review.user.name %></h5>
+      </div>
+      <div class='card-body'>
+        <h5 class='card-title'>Text: <%= review.text %></h5>
+      </div>
+    </div>
+  <% end %>
 </div>

@@ -2,7 +2,7 @@
   <div class='position-absolute top-1 start-0'>
     <div class='row'>
       <div class='col'>
-        <div class="d-grid gap-2 d-md-block">
+        <div class='d-grid gap-2 d-md-block'>
           <% if @cart.order_items.exists? %>
           <h5 >Amount: <%= @cart.sum_cents%></h5>
             <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
@@ -13,16 +13,16 @@
       </div>
     </div>
       <% @cart.order_items.includes(:product).each do |order_item| %>
-      <div class="d-grid gap-2 d-md-block">
+      <div class='d-grid gap-2 d-md-block'>
         <h5 >Product name: <%=order_item.product.name %></h5>
         <h5 >Product price: <%=order_item.product.price_cents %></h5>
         <h5 >Product quantity: <%=order_item.quantity %></h5>
 
-        <%= form_with url: "/orders/add_product", method: :get, class: 'mb-3' do |form| %>
+        <%= form_with url: '/orders/add_product', method: :get, class: 'mb-3' do |form| %>
           <%= form.hidden_field :product_id, value: order_item.product_id %>
-          <%= form.label :query, "Count:", class: 'form-label' %>
+          <%= form.label :query, 'Count:', class: 'form-label' %>
           <%= form.number_field :count, min: 1, value: order_item.quantity, class: 'form-control' %>
-          <%= form.submit "Submit", class: 'btn btn-primary btn-sm' %>
+          <%= form.submit 'Submit', class: 'btn btn-primary btn-sm' %>
           <%= link_to 'Delete item', url_for(
           controller: :orders, action: :delete_product, product_id: order_item.product_id), class: 'btn btn-primary btn-sm'%>
         <% end %>

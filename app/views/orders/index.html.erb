@@ -1,26 +1,26 @@
-<div class="d-flex justify-content-center">
-  <div class="w-75 p-3" >
-    <div class="row row-cols-1 row-cols-md-4 px-4 g-4">
+<div class='d-flex justify-content-center'>
+  <div class='w-75 p-3' >
+    <div class='row row-cols-1 row-cols-md-4 px-4 g-4'>
 
       <% @orders.each do |order| %>
-      <div class="col">
-        <div class="card h-100">
-        <span class="text-center"><h4>Order <%=order.id %></h4></span> <br />
+      <div class='col'>
+        <div class='card h-100'>
+        <span class='text-center'><h4>Order <%=order.id %></h4></span> <br />
 
-          <div class="card-body">
-            <div class="card text-center">
-              <h5 class="card-title">Status: <%= order.status %></h5>
+          <div class='card-body'>
+            <div class='card text-center'>
+              <h5 class='card-title'>Status: <%= order.status %></h5>
               <strong>
-                <p class="text-center">Amount: $<%= order.sum_cents%></p>
+                <p class='text-center'>Amount: $<%= order.sum_cents%></p>
               </strong>
             </div>
           </div>
 
-          <div class="card-footer">
-            <div class="d-grid gap-2">
+          <div class='card-footer'>
+            <div class='d-grid gap-2'>
               <%= link_to 'Show', order, class: 'btn btn-primary btn-sm stretched-link' %>
             </div>
-            <div class="col-md-12 text-center">order made on: <%= order.created_at.strftime("%Y-%m-%d") %> </div>
+            <div class='col-md-12 text-center'>order made on: <%= order.created_at.strftime('%Y-%m-%d') %> </div>
           </div>
 
         </div>
@@ -30,7 +30,7 @@
     </div>
   </div>
 </div> <br> <br>
-<div class="position-absolute start-50 translate-middle">
+<div class='position-absolute start-50 translate-middle'>
   <%= paginate @orders %>
   <%= page_entries_info @orders %>
 </div>
