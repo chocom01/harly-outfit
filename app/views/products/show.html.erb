@@ -37,19 +37,17 @@
   <br>
 
   <% if flash[:error] %>
-  <div class="alert"><%= flash[:error] %></div>
+    <div class="alert"><%= flash[:error] %></div>
   <% end %>
 
   <% @product.reviews.each do |review| %>
-  <div class="card">
-    <div class="card-header">
-      <h5>User: <%= review.user.name %></h5>
+    <div class="card">
+      <div class="card-header">
+        <h5>User: <%= review.user.name %></h5>
+      </div>
+      <div class="card-body">
+        <h5 class="card-title">Text: <%= review.text %></h5>
+      </div>
     </div>
-    <div class="card-body">
-      <h5 class="card-title">Text: <%= review.text %></h5>
-    </div>
-</div>
-<% end %>
-
-
+  <% end %>
 </div>
