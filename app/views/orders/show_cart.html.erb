@@ -25,13 +25,13 @@
 
         <%= form_with url: "/orders/add_product", method: :get, class: 'mb-3' do |form| %>
           <%= form.hidden_field :product_id, value: order_item.product_id %>
-          <% if order_item.product.availability > 0 %>
-          <%= form.label :query, "Count:", class: 'form-label' %>
-          <%= form.number_field :count, min: 0, max: order_item.product.availability, value: order_item.quantity, class: 'form-control' %>
-          <%= form.submit "Submit", class: 'btn btn-primary btn-sm' %>
-          <% else %>
-          <p>Not available</p>
-          <% end %>
+            <% if order_item.product.availability > 0 %>
+              <%= form.label :query, "Count:", class: 'form-label' %>
+              <%= form.number_field :count, min: 0, max: order_item.product.availability, value: order_item.quantity, class: 'form-control' %>
+              <%= form.submit "Submit", class: 'btn btn-primary btn-sm' %>
+            <% else %>
+              <p>Not available</p>
+            <% end %>
           <%= link_to 'Delete item', url_for(
           controller: :orders, action: :delete_product, product_id: order_item.product_id), class: 'btn btn-primary btn-sm'%>
         <% end %>
