@@ -5,11 +5,17 @@ class ReviewsController < ApplicationController
   load_and_authorize_resource
 
   def create
-    review = Review.new(
-      user: current_user, product_id: params[:product_id], text: params[:text]
-    )
+    review = current_user.reviews.new(review_params)
+    unless review.save
+      flash[:error] = review.errors.full_messages.to_sentence
+    end
 
-    review.save || flash[:error] = review.errors.full_messages.to_sentence
     redirect_back(fallback_location: root_path)
+  end
+
+  private
+
+  def review_params
+    params.require(:review).permit(:product_id, :text)
   end
 end
