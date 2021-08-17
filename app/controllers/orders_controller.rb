@@ -15,7 +15,7 @@ class OrdersController < ApplicationController
 
   def delete_product
     cart.order_items.find_by(product_id: params[:product_id]).destroy
-    cart.set_sum_price
+    cart.update_sum_price
 
     redirect_to show_cart_orders_path
   end

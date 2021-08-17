@@ -11,9 +11,7 @@ class Order < ApplicationRecord
   has_many :products, through: :order_items, dependent: :destroy
   belongs_to :user
 
-  scope :available_cart, -> { where(status: 'cart') }
-
-  def set_sum_price
+  def update_sum_price
     self.sum_cents = self.order_items.sum do |item|
       item.product.price_cents * item.quantity
     end
