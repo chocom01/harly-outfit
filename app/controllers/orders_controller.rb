@@ -34,12 +34,13 @@ class OrdersController < ApplicationController
       product_availability = item.product.availability - item.quantity
       item.product.update(availability: product_availability)
     end
-    cart.update(status: :paid) && create_empty_cart
+    cart.update(status: :paid)
+    find_or_create_cart
     redirect_to products_path
   end
 
   def add_product
-    add_product_to_order.update(quantity: params[:count]) && cart.set_sum_price
+    add_product_to_order
 
     redirect_to show_cart_orders_path
   end
@@ -56,6 +57,8 @@ class OrdersController < ApplicationController
 
   def add_product_to_order
     cart.order_items.find_or_create_by(product_id: params[:product_id].to_i)
+        .update(quantity: params[:count])
+    cart.update_sum_price
   end
 
   def find_or_create_cart
