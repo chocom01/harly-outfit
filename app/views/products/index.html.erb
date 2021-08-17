@@ -1,26 +1,26 @@
-<div class="d-flex justify-content-center">
-  <div class="w-75 p-3" >
-    <div class="row row-cols-1 row-cols-md-4 px-4 g-4">
+<div class='d-flex justify-content-center'>
+  <div class='w-75 p-3' >
+    <div class='row row-cols-1 row-cols-md-4 px-4 g-4'>
       <% @products.each do |product| %>
-      <div class="col">
-        <div class="card h-100">
+      <div class='col'>
+        <div class='card h-100'>
           <% if product.photos.exists? %>
-            <%= image_tag product.photos.first.image_url(:small), class: "card-img-top", width: "200px"%>
+            <%= image_tag product.photos.first.image_url(:small), class: 'card-img-top', width: '200px'%>
             <% else %>
-            <%= image_tag '/women-clothing.jpg', class: "card-img-top", width: "200px"%>
+            <%= image_tag '/women-clothing.jpg', class: 'card-img-top', width: '200px'%>
           <% end %>
-          <div class="card-body">
-            <div class="card text-center">
-              <h5 class="card-title"><%=product.name %></h5>
-              <p class="card-text">Sizes: <%=product.sizes.join(', ') %></p>
-              <p class="card-text">Gender: <%=product.gender %></p>
+          <div class='card-body'>
+            <div class='card text-center'>
+              <h5 class='card-title'><%=product.name %></h5>
+              <p class='card-text'>Sizes: <%=product.sizes.join(', ') %></p>
+              <p class='card-text'>Gender: <%=product.gender %></p>
               <strong>
-                <p class="text-center">Price: <%=product.price_cents%></p>
+                <p class='text-center'>Price: <%=product.price_cents%></p>
               </strong>
             </div>
           </div>
-          <div class="card-footer">
-            <div class="d-grid gap-2">
+          <div class='card-footer'>
+            <div class='d-grid gap-2'>
               <%= link_to 'Show', product, class: 'btn btn-primary btn-sm stretched-link' %>
             </div>
           </div>
@@ -30,7 +30,7 @@
     </div>
   </div>
 </div> <br> <br>
-<div class="position-absolute start-50 translate-middle">
+<div class='position-absolute start-50 translate-middle'>
   <%= paginate @products %>
   <%= page_entries_info @products %>
 </div>
