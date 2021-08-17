@@ -9,6 +9,8 @@ class OrderItem < ApplicationRecord
   private
 
   def product_availability
-    self.quantity <= self.product.availability || errors.add(:product, 'Does not have so many pieces in stock')
+    if self.quantity > self.product.availability
+      errors.add(:product, 'Does not have so many pieces in stock')
+    end
   end
 end
