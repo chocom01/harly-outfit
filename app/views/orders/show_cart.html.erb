@@ -20,7 +20,6 @@
         <h5 >Product name: <%=order_item.product.name %></h5>
         <h5 >Product price: <%=order_item.product.price_cents %></h5>
         <h5 >Product quantity: <%=order_item.quantity %></h5>
-        <h5 >Product size: <%=order_item.size %></h5>
         <p ><%= order_item.product.availability %> pieces available</p>
 
 
@@ -30,7 +29,7 @@
             <% if order_item.product.availability > 0 %>
               <%= form.label :query, "Sizes:", class: 'h5 form-label mt-2' %>
               <% sizes_array = order_item.product.sizes.each { |size| size } %>
-              <%= select_tag(:size, options_for_select(sizes_array, order_item.size), class: "form-select") %>
+              <%= select_tag(:size, options_for_select(sizes_array), class: "form-select") %>
 
               <%= form.label :query, "Count:", class: 'form-label' %>
               <%= form.number_field :count, min: 0, max: order_item.product.availability, value: order_item.quantity, class: 'form-control' %>
