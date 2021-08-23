@@ -7,10 +7,10 @@ class Product < ApplicationRecord
   }
 
   paginates_per 10
-  has_many :order_items
-  has_many :orders, through: :order_items, dependent: :destroy
   has_many :reviews
   has_many :photos
+  has_many :variants
+  has_and_belongs_to_many :option_types
 
   before_destroy :stop_destroy_if_paid, prepend: true
 
