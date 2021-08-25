@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 RailsAdmin.config do |config|
   ## == Devise ==
   config.authenticate_with do
@@ -35,6 +37,11 @@ RailsAdmin.config do |config|
   ## == Gravatar integration ==
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
+
+  ## == Add ability for array column ==
+  config.model 'Product' do
+    configure :sizes, :pg_string_array
+  end
 
   config.actions do
     dashboard                     # mandatory
