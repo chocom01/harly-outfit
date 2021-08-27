@@ -13,7 +13,7 @@ class Order < ApplicationRecord
 
   def update_sum_price
     self.sum_cents = self.order_items.sum do |item|
-      item.product.price_cents * item.quantity
+      item.variant.product.price_cents * item.quantity
     end
     save
   end

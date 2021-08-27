@@ -6,7 +6,7 @@ class OrdersController < ApplicationController
   load_and_authorize_resource
 
   def index
-    @orders = Order.page(params[:page]).includes(:products).where(status: 'paid')
+    @orders = Order.page(params[:page]).includes(:variants).where(status: 'paid')
   end
 
   def show
@@ -14,7 +14,7 @@ class OrdersController < ApplicationController
   end
 
   def delete_product
-    cart.order_items.find_by(product_id: params[:product_id]).destroy
+    cart.order_items.find_by(variant_id: params[:variant_id]).destroy
     cart.update_sum_price
 
     redirect_to show_cart_orders_path
@@ -26,13 +26,13 @@ class OrdersController < ApplicationController
 
   def pay
     cart.order_items.each do |item|
-      if item.product.availability < item.quantity
+      if item.variant.availability < item.quantity
         flash[:alert] = 'Ooops.. somethink went wrong, please check availability of products in cart'
         return redirect_back(fallback_location: root_path)
       end
 
-      product_availability = item.product.availability - item.quantity
-      item.product.update(availability: product_availability)
+      product_availability = item.variant.availability - item.quantity
+      item.variant.update(availability: product_availability)
     end
     cart.update(status: :paid)
     find_or_create_cart
@@ -56,7 +56,7 @@ class OrdersController < ApplicationController
   end
 
   def add_product_to_order
-    cart.order_items.find_or_create_by(product_id: params[:product_id].to_i)
+    cart.order_items.find_or_create_by(variant_id: params[:variant_id])
         .update(quantity: params[:count])
     cart.update_sum_price
   end

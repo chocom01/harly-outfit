@@ -38,11 +38,6 @@ RailsAdmin.config do |config|
   ## To disable Gravatar integration in Navigation Bar set to false
   # config.show_gravatar = true
 
-  ## == Add ability for array column ==
-  config.model 'Product' do
-    configure :sizes, :pg_string_array
-  end
-
   config.actions do
     dashboard                     # mandatory
     index                         # mandatory

@@ -2,15 +2,15 @@
 
 class OrderItem < ApplicationRecord
   belongs_to :order
-  belongs_to :product
+  belongs_to :variant
 
-  validate :product_availability
+  validate :variant_availability
 
   private
 
-  def product_availability
-    if self.quantity > self.product.availability
-      errors.add(:product, 'Does not have so many pieces in stock')
+  def variant_availability
+    if self.quantity > self.variant.availability
+      errors.add(:variant, 'Does not have so many pieces in stock')
     end
   end
 end

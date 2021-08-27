@@ -11,60 +11,61 @@
 
 OptionType.create(
   [
-    { name: 'Outerwear size' },
+    { name: 'size', presentation: 'Outerwear size' },
 
-    { name: 'Color' },
+    { name: 'size', presentation: 'Shoes size' },
 
-    { name: 'Shoes size' }
+    { name: 'color', presentation: 'Color' }
   ]
 )
 OptionType.first.option_values.create(
   [
-    { name: 'M' },
-    { name: 'L' },
-    { name: 'S' }
+    { name: 'size', presentation: 'M' },
+    { name: 'size', presentation: 'L' },
+    { name: 'size', presentation: 'S' }
   ]
 )
 OptionType.second.option_values.create(
   [
-    { name: 'Red' },
-    { name: 'Black' },
-    { name: 'White' }
+    { name: 'size', presentation: '41' },
+    { name: 'size', presentation: '42' },
+    { name: 'size', presentation: '43' }
   ]
 )
 OptionType.third.option_values.create(
   [
-    { name: '41' },
-    { name: '42' },
-    { name: '43' }
+    { name: 'color', presentation: 'Red' },
+    { name: 'color', presentation: 'Black' },
+    { name: 'color', presentation: 'White' }
   ]
 )
-@products = OptionType.first.products.create(
+OptionType.find_by(id: 1).products.create(
   [
-    { name: 'Hoody', price_cents: 500 },
-
-    { name: 'Sneakers', price_cents: 400 }
-
-    # { name: 'T-shirt', price_cents: 150 },
-
-    # { name: 'Jacket', price_cents: 400 },
-
-    # { name: 'Suit', price_cents: 300 },
-
-    # { name: 'Pants', price_cents: 500 },
-
-    # { name: 'Skirt', price_cents: 300 },
-
-    # { name: 'Skirt', price_cents: 300 }
-
+    { name: 'Hoody', price_cents: 500 }
   ]
 )
+
+OptionType.find_by(id: 2).products.create(
+  [
+    { name: 'Sneakers', price_cents: 400 }
+  ]
+)
+OptionType.find_by(id: 3).products << (Product.find_by(name: 'Hoody'))
+OptionType.find_by(id: 3).products << (Product.find_by(name: 'Sneakers'))
 
 # HOODY
 Variant.create(product_id: 1, availability: 6)
-Variant.find_by(id: 1).option_values << (OptionValue.find_by(name: 'M'))
-Variant.find_by(id: 1).option_values << (OptionValue.find_by(name: 'Black'))
+Variant.find_by(id: 1).option_values << (OptionValue.find_by(presentation: 'M'))
+Variant.find_by(id: 1).option_values << (OptionValue.find_by(presentation: 'Black'))
+
+Variant.create(product_id: 1, availability: 6)
+Variant.find_by(id: 2).option_values << (OptionValue.find_by(presentation: 'S'))
+Variant.find_by(id: 2).option_values << (OptionValue.find_by(presentation: 'Red'))
+
+Variant.create(product_id: 1, availability: 6)
+Variant.find_by(id: 3).option_values << (OptionValue.find_by(presentation: 'S'))
+Variant.find_by(id: 3).option_values << (OptionValue.find_by(presentation: 'White'))
 # SNEAKERS
 Variant.create(product_id: 2, availability: 6)
-Variant.find_by(id: 2).option_values << (OptionValue.find_by(name: '41'))
-Variant.find_by(id: 2).option_values << (OptionValue.find_by(name: 'White'))
+Variant.find_by(id: 4).option_values << (OptionValue.find_by(presentation: '41'))
+Variant.find_by(id: 4).option_values << (OptionValue.find_by(presentation: 'White'))
