@@ -27,7 +27,7 @@ class OrdersController < ApplicationController
   def pay
     cart.order_items.each do |item|
       if item.variant.availability < item.quantity
-        flash[:alert] = 'Ooops.. somethink went wrong, please check availability of products in cart'
+        flash[:error] = 'Ooops.. somethink went wrong, please check availability of products in cart'
         return redirect_back(fallback_location: root_path)
       end
 
@@ -41,6 +41,9 @@ class OrdersController < ApplicationController
 
   def add_product
     add_product_to_order
+    if flash[:error]
+      return redirect_back(fallback_location: root_path)
+    end
 
     redirect_to show_cart_orders_path
   end
@@ -56,9 +59,17 @@ class OrdersController < ApplicationController
   end
 
   def add_product_to_order
-    cart.order_items.find_or_create_by(variant_id: params[:variant_id])
-        .update(quantity: params[:count])
-    cart.update_sum_price
+    if params[:variant_id].nil?
+      flash[:error] = 'Please select some variant'
+    else
+      if Variant.find_by(id: params[:variant_id]).availability >= params[:count].to_i
+        cart.order_items.find_or_create_by(variant_id: params[:variant_id])
+            .update(quantity: params[:count])
+        cart.update_sum_price
+      else
+        flash[:error] = 'Ooops.. somethink went wrong, please check availability of products in cart'
+      end
+    end
   end
 
   def find_or_create_cart

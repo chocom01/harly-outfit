@@ -1,5 +1,5 @@
-<% if flash[:alert] %>
-<div class="alert"><%= flash[:alert] %></div>
+<% if flash[:error] %>
+<div class="alert"><%= flash[:error] %></div>
 <% end %>
 <div class='container'>
   <div class='position-absolute top-1 start-0'>
@@ -21,11 +21,6 @@
         <h5 >Product price: <%=order_item.variant.product.price_cents %></h5>
         <h5 >Product quantity: <%=order_item.quantity %></h5>
         <p ><%= order_item.variant.availability %> pieces available</p>
-
-
-
-
-
 
         <%= form_with url: "/orders/add_product", method: :get, class: 'mb-3' do |form| %>
 
