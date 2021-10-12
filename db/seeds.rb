@@ -1,47 +1,71 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+# frozen_string_literal: true
+
 @users = User.create(
   [
-    { name: 'Kolya', email: 'mukola0101@gmail.com', password: '123456', superadmin_role: true },
+    { name: 'Kolya', email: 'mukola0101@gmail.com', password: '123456',
+      superadmin_role: true },
 
     { name: 'Ivan', email: 'la0101@gmail.com', password: '123456' }
   ]
 )
 
-@products = Product.create(
+OptionType.create(
   [
-    { name: 'Dress', price_cents: 500, sizes: ['M, S'], gender: 1 },
+    { name: 'size', presentation: 'Outerwear size' },
 
-    { name: 'Coat', price_cents: 400, sizes: ['M, S'], gender: 0 },
+    { name: 'size', presentation: 'Shoes size' },
 
-    { name: 'Suit', price_cents: 300, sizes: ['M, S'], gender: 1 },
-
-    { name: 'T-shirt', price_cents: 150, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Pants', price_cents: 500, sizes: ['M, S'], gender: 0 },
-
-    { name: 'Jacket', price_cents: 400, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Skirt', price_cents: 300, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Dress', price_cents: 500, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Coat', price_cents: 400, sizes: ['M, S'], gender: 0 },
-
-    { name: 'Suit', price_cents: 300, sizes: ['M, S'], gender: 1 },
-
-    { name: 'T-shirt', price_cents: 150, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Pants', price_cents: 500, sizes: ['M, S'], gender: 0 },
-
-    { name: 'Jacket', price_cents: 400, sizes: ['M, S'], gender: 1 },
-
-    { name: 'Skirt', price_cents: 300, sizes: ['M, S'], gender: 1 }
-
+    { name: 'color', presentation: 'Color' }
   ]
 )
+OptionType.first.option_values.create(
+  [
+    { name: 'size', presentation: 'M' },
+    { name: 'size', presentation: 'L' },
+    { name: 'size', presentation: 'S' }
+  ]
+)
+OptionType.second.option_values.create(
+  [
+    { name: 'size', presentation: '41' },
+    { name: 'size', presentation: '42' },
+    { name: 'size', presentation: '43' }
+  ]
+)
+OptionType.third.option_values.create(
+  [
+    { name: 'color', presentation: 'Red' },
+    { name: 'color', presentation: 'Black' },
+    { name: 'color', presentation: 'White' }
+  ]
+)
+OptionType.find_by(id: 1).products.create(
+  [
+    { name: 'Hoody', price_cents: 500 }
+  ]
+)
+
+OptionType.find_by(id: 2).products.create(
+  [
+    { name: 'Sneakers', price_cents: 400 }
+  ]
+)
+OptionType.find_by(id: 3).products << (Product.find_by(name: 'Hoody'))
+OptionType.find_by(id: 3).products << (Product.find_by(name: 'Sneakers'))
+
+# HOODY
+Variant.create(product_id: 1, availability: 6)
+Variant.find_by(id: 1).option_values << (OptionValue.find_by(presentation: 'M'))
+Variant.find_by(id: 1).option_values << (OptionValue.find_by(presentation: 'Black'))
+
+Variant.create(product_id: 1, availability: 6)
+Variant.find_by(id: 2).option_values << (OptionValue.find_by(presentation: 'S'))
+Variant.find_by(id: 2).option_values << (OptionValue.find_by(presentation: 'Red'))
+
+Variant.create(product_id: 1, availability: 6)
+Variant.find_by(id: 3).option_values << (OptionValue.find_by(presentation: 'S'))
+Variant.find_by(id: 3).option_values << (OptionValue.find_by(presentation: 'White'))
+# SNEAKERS
+Variant.create(product_id: 2, availability: 6)
+Variant.find_by(id: 4).option_values << (OptionValue.find_by(presentation: '41'))
+Variant.find_by(id: 4).option_values << (OptionValue.find_by(presentation: 'White'))

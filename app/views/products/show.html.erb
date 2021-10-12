@@ -1,33 +1,49 @@
-<div class='container'>
-  <div class='position-absolute top-1 start-0'>
-    <div class='row'>
+<% if flash[:error] %>
+  <div class='alert'><%= flash[:error] %></div>
+<% end %>
+<div class='d-flex justify-content-center'>
+  <div class='w-30 p-3'>
+    <div class='row justify-content-md-center'>
       <div class='col'>
         <% if @product.photos.exists? %>
         <%= image_tag @product.photos.first.image_url(:large) %>
         <% else %>
-        <%= image_tag '/women-clothing.jpg', class: "card-img-top", width: "200px"%>
+        <%= image_tag '/women-clothing.jpg', class: 'rounded mx-auto d-block', width: '200px'%>
         <% end %>
       </div>
 
       <div class='col'>
         <h3><%= @product.name %></h3>
         <p>Price: <%= @product.price_cents %></p>
-        <p>Sizes: <%= @product.sizes.join(', ') %></p>
-        <p>Gender: <%= @product.gender %></p>
-
-      <div class="d-grid gap-2 d-md-block">
-        <%= link_to 'Orders', orders_path, class: 'btn btn-primary btn-sm'%>
-
       </div>
     </div>
-  </div>
 
-  <%= form_with url: "/orders/add_product", method: :get do |form| %>
-    <%= form.hidden_field :product_id, value: @product.id, class: 'mb-3' %>
-    <%= form.label :query, "Count:", class: 'form-label' %>
-    <%= form.number_field :count, min: 1, value: 1, class: 'form-control' %>
-    <%= form.submit "Add product to cart", class: 'btn btn-primary btn-sm' %>
-  <% end %>
 
-  </div>
+      <%= form_with url: '/orders/add_product', method: :get do |form| %>
+
+        <% @product.variants.each do |variant| %>
+        <% if variant.availability > 0 %>
+
+          <% variant.option_values.each do |value| %>
+            <div class="h5 form-label mt-2">
+              <%= form.label :query, value.presentation %>
+            </div>
+          <% end %>
+
+          <%= form.radio_button(:variant_id, variant.id) %>
+          <%= variant.availability %>
+        <% else %>
+            <p>Not available</p> <hr>
+        <% end %>
+        <% end %>
+        <br>
+
+        <%= form.label :query, 'Count:', class: 'h5 form-label mt-2' %>
+        <%= form.number_field :count, min: 0, max: @product.variants.maximum("availability"), value: 1, class: 'form-control' %>
+        <div class='d-grid gap-2'>
+          <%= form.submit 'Add product to cart', class: 'btn btn-primary btn-sm mt-3' %>
+        </div>
+      <% end %>
+
+    </div>
 </div>
